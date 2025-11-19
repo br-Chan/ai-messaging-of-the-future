@@ -14,8 +14,15 @@ export class AuthService {
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
-    this.supabase.auth.onAuthStateChange((event, session) => {
-      localStorage.setItem("session", JSON.stringify(session?.user));
+    this.supabase.auth.onAuthStateChange(async (event, session) => {
+      // TODO: remove these name-getting shenanigans if redundant
+      const { data } = await this.supabase
+        .from("users")
+        .select("name")
+        .eq("id", session?.user.id)
+        .maybeSingle();
+      localStorage.setItem("session", JSON.stringify({ user: session?.user, name: data?.name }));
+      console.log(localStorage.getItem("session"));
       if (session?.user) {
         this._ngZone.run(() => {
           this.router.navigate(["/chat"]);
@@ -29,8 +36,13 @@ export class AuthService {
     return user !== "undefined";
   }
 
-  async signInAnonymously() {
+  async signInAnonymously(name: string) {
     await this.supabase.auth.signInAnonymously();
+
+    const { data: sessionData } = await this.supabase.auth.getSession();
+    const userId = sessionData.session?.user.id;
+
+    await this.supabase.from("users").upsert({ id: userId, name });
   }
 
   async signOut() {
