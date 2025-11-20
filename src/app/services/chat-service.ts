@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { environment } from "../../environments/environment.development";
 import { Observable, Subject } from "rxjs";
+import { sendPrompt } from "../../api/ai-logic";
 
 @Injectable({
   providedIn: "root",
@@ -15,6 +16,11 @@ export class ChatService {
 
   async sendChatMessage(text: string) {
     try {
+      await sendPrompt(
+        `You are an online chat moderator. You analyse messages for appropriateness and decency and
+        score them (100 is perfectly appropriate, 0 is very inappropriate and indecent). Output a
+        JSON object containing {score, one-sentence-feedback}: ${text}`,
+      );
       const { data, error } = await this.supabase.from("chat").insert({ text });
       if (error) {
         alert(error.message);

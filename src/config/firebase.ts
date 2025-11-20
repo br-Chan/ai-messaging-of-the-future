@@ -21,4 +21,4 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const ai = getAI(app, { backend: new GoogleAIBackend() });
-const model = getGenerativeModel(ai, { model: "gemini-2.5-flash" });
+export const aiModel = getGenerativeModel(ai, { model: "gemini-2.5-flash" });
