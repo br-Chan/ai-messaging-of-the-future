@@ -45,4 +45,3 @@ Thumbs.db
 .vercel
 .env
 .env*.local
-src/environments/
