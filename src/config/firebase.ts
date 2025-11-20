@@ -2,18 +2,19 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
+import { environment } from "../environments/environment.development";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCCIfR1c-BvZxkqRmLuijrpsZWha1NlAEo",
-  authDomain: "rankle-73d71.firebaseapp.com",
-  projectId: "rankle-73d71",
-  storageBucket: "rankle-73d71.appspot.com",
-  messagingSenderId: "756873187999",
-  appId: "1:756873187999:web:f3434d0a00831bb1edc8aa",
+  apiKey: environment.apiKey,
+  authDomain: environment.authDomain,
+  projectId: environment.projectId,
+  storageBucket: environment.storageBucket,
+  messagingSenderId: environment.messagingSenderId,
+  appId: environment.appId,
 };
 
 // Initialize Firebase
