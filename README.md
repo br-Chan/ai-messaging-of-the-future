@@ -1,5 +1,7 @@
 # ChatApp
 
+***No longer working on this repository in favour of a better, bigger plan***
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
 
 ## Development server
